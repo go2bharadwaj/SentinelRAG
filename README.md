@@ -1,43 +1,33 @@
 # SentinelRAG: Private, Secure T&C and Contract QA Assistant (Discovery/Learning Prototype)
 
 ## Overview
-**SentinelRAG** is a self-hosted prototype system designed to help individuals securely query the Terms & Conditions, NDAs, privacy policies, and other agreements they’ve signed — using natural language.
+**SentinelRAG** is a self-hosted prototype designed to help you make sense of the legal documents you’ve signed — from Terms & Conditions and NDAs to privacy policies and contracts — simply by asking questions in plain English.
 
-The idea for this project was inspired by a real experience:  
-> *When I bought a home, I had to sign a large number of legal documents for the first time — and it made me realize how little visibility I had into what I was actually agreeing to.*  
-That experience sparked the idea for a system that would let anyone securely upload their own contracts and later ask things like:
-- “When does this agreement expire?”
-- “What happens if I terminate early?”
-- “Can they share my data with third parties?”
-
-**SentinelRAG** aims to bring transparency and accessibility to legally binding documents — without sacrificing security or privacy.
-
-Built using a Retrieval-Augmented Generation (RAG) architecture, the system demonstrates how GenAI can support personal legal comprehension while following best practices in infrastructure and DevSecOps.
-
-*This project is a personal learning and infrastructure prototype, not yet intended for production use.*
+### 💡 The idea for this project was inspired by a real experience:  
+When I bought a home, I had to sign a large number of legal documents for the first time — and it made me realize how little visibility I had into what I was actually agreeing to. That experience sparked the idea for a system that would let anyone securely upload their own contracts and later ask meaningful questions about them — without needing to dig through legal jargon.
 
 
-### 🔍 Why this project?
-When I bought a home, I had to sign dozens of legal documents for the first time. It made me realize how unclear and overwhelming contracts and T&C agreements can be — especially when you want to revisit them later.  
-**SentinelRAG** was born from the need to ask questions like:
-- “When does this agreement expire?”
-- “Can they share my personal data?”
-- “What happens if I cancel early?”
+## 🔍 What SentinelRAG does
+**SentinelRAG** lets you:
+- Upload contracts, policies, or agreements
+- Ask natural-language questions like:
+  - “Can they share my data?”
+  - “Am I locked into a renewal?”
+  - “Who owns the intellectual property?”
+- Receive fast, relevant answers that help you understand what you’ve agreed to — without reading every clause manually.
 
-This project aims to make legal content more accessible — without compromising privacy — by combining Retrieval-Augmented Generation (RAG) with secure, enterprise-grade infrastructure patterns.
+## 🔐 Why it matters
+Legal documents shouldn’t be a black box. SentinelRAG aims to bring clarity, security, and control to your agreements, powered by Retrieval-Augmented Generation (RAG) and wrapped in best practices for DevOps and AI infrastructure.
 
-## What It Does
-The system allows users to:
-- Upload their own contracts or PDFs
-- Ask natural-language questions about the contents
-- Run entirely locally or securely in the cloud
-- Use hardened infrastructure to keep sensitive data protected
+This is an ongoing **learning prototype** — built to explore how GenAI, when combined with secure infrastructure, can make legal understanding more human-friendly and trustworthy.
+
 
 ## Key Practices Demonstrated
 - TLS/mTLS encryption and hardened Docker containers
 - Observability via Galileo GenAI SDK (or Prometheus + Grafana fallback)
 - Kubernetes-based CI/CD with Helm and GitHub Actions
 - Modular, API-first design using FastAPI and LangChain
+- Uses hardened infrastructure to keep sensitive data protected
 
 > 🛡️ This is a **prototype**, not yet intended for production use. It is being developed to explore infrastructure, security, and reliability practices relevant to secure GenAI systems.
 
@@ -47,19 +37,18 @@ The system allows users to:
 - **LLM**: OpenAI API (default), Mistral or other local models (optional)
 - **Deployment**: Docker, Kubernetes, Helm, GitHub Actions
 - **Security**: TLS, mTLS (Istio/NGINX), hardened containers (distroless + Trivy)
-- **Observability**: Galileo SDK (primary), Prometheus + Grafana (fallback)
+- **Observability**: Galileo SDK (primary) or Prometheus + Grafana (fallback)
 
 ## Status
 - First commit: June 7, 2025   
 - MVP target: June 12, 2025  
 - Actively being developed — structure and pipeline under construction
 
-
 ## Planned Structure
-rag-secure-platform/
+SentinelRAG/
 - backend/ # FastAPI + LangChain pipeline
 - frontend/ # Streamlit app
 - k8s/ # Helm charts, manifests
-- security/ # TLS, OAuth2, hardening configs
-- observability/ # Galileo fallback tools
+- security/ # TLS, OAuth2, hardening configs (Maybe Phase 2)
+- observability/ # Galileo SDK (primary) or Prometheus + Grafana (fallback)
 - README.md # This file
