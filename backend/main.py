@@ -1,5 +1,5 @@
-from fastapi import FastAPI, UploadFile, File
-from rag_pipeline import process_query
+from fastapi import FastAPI, UploadFile, File, Form
+from rag_pipeline import *
 import pdfplumber
 import io
 
@@ -12,15 +12,26 @@ def extract_text_from_pdf(file_bytes):
             text += page.extract_text() or ""
     return text
 
-@app.post("/ask")
-async def ask_question(file: UploadFile = File(...), question: str = ""):
+# Upload endpoint (used once per doc)
+@app.post("/upload")
+async def upload_file(file: UploadFile = File(...)):
     contents = await file.read()
 
     if file.filename.endswith(".pdf"):
         text = extract_text_from_pdf(contents)
     else:
-        text = contents.decode("utf-8", errors="ignore")  # fallback for text files
+        text = contents.decode("utf-8", errors="ignore")
 
-    answer = process_query(text, question)
+    store_embeddings(text)
+    return {"status": "Document uploaded and processed successfully."}
+
+# Ask endpoint
+@app.post("/ask")
+async def ask_question(question: str = Form(...)):
+    answer = query_index(question)
     return {"answer": answer}
 
+@app.delete("/delete_vectorDB")
+async def delete_vectordb():
+    deleteVectorStore()
+    return {"status": "Vector DB deleted successfully."}
