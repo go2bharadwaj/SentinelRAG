@@ -19,7 +19,8 @@ When I bought a home, I had to sign a large number of legal documents for the fi
 ## 🔐 Why it matters
 Legal documents shouldn’t be a black box. SentinelRAG aims to bring clarity, security, and control to your agreements, powered by Retrieval-Augmented Generation (RAG) and wrapped in best practices for DevOps and AI infrastructure.
 
-This is an ongoing **learning prototype** — built to explore how GenAI, when combined with secure infrastructure, can make legal understanding more human-friendly and trustworthy.
+This is an ongoing **learning prototype** 
+— built to explore how GenAI, when combined with secure infrastructure, can make legal understanding more human-friendly and trustworthy.
 
 
 ## Key Practices Demonstrated
@@ -32,12 +33,15 @@ This is an ongoing **learning prototype** — built to explore how GenAI, when c
 > 🛡️ This is a **prototype**, not yet intended for production use. It is being developed to explore infrastructure, security, and reliability practices relevant to secure GenAI systems.
 
 ## Stack
+
 - **Backend**: Python, FastAPI, LangChain
-- **Retrieval**: FAISS
-- **LLM**: OpenAI API (default), Mistral or other local models (optional)
-- **Deployment**: Docker, Kubernetes, Helm, GitHub Actions
-- **Security**: TLS, mTLS (Istio/NGINX), hardened containers (distroless + Trivy)
-- **Observability**: Galileo SDK (primary) or Prometheus + Grafana (fallback)
+- **Retrieval**: FAISS (persistent disk storage) (For now)
+- **Embeddings**: HuggingFace (MiniLM-L6-v2)
+- **LLM**: Mistral via Ollama (local inference using Ollama)
+- **Security**: SHA256 deduplication, TLS/mTLS planned
+- **Deployment**: Docker → K8s (via Helm)
+- **Observability**: Galileo SDK (planned) or Prometheus + Grafana (fallback)
+- **DevOps**: GitHub Actions (planned)
 
 ## Status
 - First commit: June 7, 2025   
@@ -46,9 +50,14 @@ This is an ongoing **learning prototype** — built to explore how GenAI, when c
 
 ## Planned Structure
 SentinelRAG/
-- backend/ # FastAPI + LangChain pipeline
-- frontend/ # Streamlit app
-- k8s/ # Helm charts, manifests
-- security/ # TLS, OAuth2, hardening configs (Maybe Phase 2)
-- observability/ # Galileo SDK (primary) or Prometheus + Grafana (fallback)
-- README.md # This file
+SentinelRAG/
+- backend/ # FastAPI app + LangChain pipeline
+  * main.py # REST API (upload, ask, delete vectordb)
+  * rag_pipeline.py
+  * requirements.txt
+- vectorstores/ # Persistent FAISS index + hash DB
+- security/ # TLS, hardening configs (planned)
+- k8s/ # Helm charts and manifests (planned)
+- observability/ # Monitoring and tracing setup (planned)
+- frontend/ # Streamlit UI (optional)
+- README.md
