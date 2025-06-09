@@ -6,14 +6,17 @@ from pathlib import Path
 import shutil
 import hashlib
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores import FAISS
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.chat_models import ChatOllama
-from langchain.prompts import PromptTemplate
+from langchain_community.vectorstores import FAISS
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.chat_models import ChatOllama
 from langchain.chains import RetrievalQA
+from langchain.prompts import PromptTemplate
+
 # Save
 FAISS_INDEX_PATH = "vectorstores/legal_docs_index" #FAISS index path
 HASH_INDEX_PATH = "vectorstores/hash_index.json"
+ollama_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+llm = ChatOllama(model="mistral", base_url=ollama_url)
 
 load_dotenv()
 
@@ -70,7 +73,6 @@ def query_index(question: str) -> str:
     )
 
     retriever = vectorstore.as_retriever(search_type="mmr", search_kwargs={"k": 10, "fetch_k": 20})
-    llm = ChatOllama(model="mistral")
 
     # Optional: Custom prompt
     prompt_template = """
@@ -106,6 +108,10 @@ def deleteVectorStore():
 
     with open(HASH_INDEX_PATH, "w") as f:
         json.dump({"hashes": []}, f)
+
+
+
+
 
 # # Our main function: takes a document and a question, returns an answer
 # def process_query(text: str, question: str) -> str:
