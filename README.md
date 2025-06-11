@@ -61,3 +61,6 @@ SentinelRAG/
 - observability/ # Monitoring and tracing setup (planned)
 - frontend/ # Streamlit UI (optional)
 - README.md
+
+## UPDATES:
+- Omitting security, untill the end

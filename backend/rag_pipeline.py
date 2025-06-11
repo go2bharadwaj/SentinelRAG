@@ -19,6 +19,8 @@ ollama_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 llm = ChatOllama(model="mistral", base_url=ollama_url)
 
 load_dotenv()
+openai_api_key = os.getenv("OPENAI_API_KEY")
+galileo_key = os.getenv("GALILEO_API_KEY")
 
 # Creating embedding model once instead (Semantic search)
 embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
